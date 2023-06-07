@@ -1,0 +1,27 @@
+<script class="toDel" src="jquery-3.6.0.js"></script>
+<script class="toDel">
+    function main(){
+      if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+        navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment", }
+        }).then(stream => {
+          const vidFrame = $("#videoFrame")[ 0 ]
+          vidFrame.srcObject = stream
+          vidFrame.play()
+          
+          const track = stream.getVideoTracks()[0];
+          track.applyConstraints({
+            advanced: [{torch: true}],
+          });
+        })
+      }
+    }
+</script>
+
+<body>
+  <video autoplay id="videoFrame">
+</body>
+  
+<script>
+  main()
+</script>
