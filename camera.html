@@ -1,10 +1,13 @@
 <script class="toDel" src="jquery-3.6.0.js"></script>
 <script class="toDel">
+    let streamRef
+    
     function main(){
       if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
         navigator.mediaDevices.getUserMedia({
           video: { facingMode: "environment", }
         }).then(stream => {
+            streamRef = stream
           const vidFrame = $("#videoFrame")[ 0 ]
           vidFrame.srcObject = stream
           vidFrame.play()
@@ -15,11 +18,8 @@
     var isTorchOn = false
     function toggleTorch(){
         isTorchOn = !isTorchOn
-        
-        const vidFrame = $("#videoFrame")[ 0 ]
-        const stream = vidFrame.srcObject
          
-      const track = stream.getVideoTracks()[0];
+      const track = streamRef.getVideoTracks()[0];
       track.applyConstraints({
         advanced: [{torch: isTorchOn}],
       });
