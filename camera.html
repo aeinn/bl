@@ -8,18 +8,27 @@
           const vidFrame = $("#videoFrame")[ 0 ]
           vidFrame.srcObject = stream
           vidFrame.play()
-          
-          const track = stream.getVideoTracks()[0];
-          track.applyConstraints({
-            advanced: [{torch: true}],
-          });
         })
       }
+    }
+    
+    var isTorchOn = false
+    function toggleTorch(){
+        isTorchOn = !isTorchOn
+        
+        const vidFrame = $("#videoFrame")[ 0 ]
+        const stream = vidFrame.srcObject
+         
+      const track = stream.getVideoTracks()[0];
+      track.applyConstraints({
+        advanced: [{torch: isTorchOn}],
+      });
     }
 </script>
 
 <body>
   <video autoplay id="videoFrame">
+  <button (onClick)="toggleTorch()">toggle torch</button>
 </body>
   
 <script>
