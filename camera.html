@@ -24,11 +24,16 @@
         advanced: [{torch: isTorchOn}],
       });
     }
+    
+    function stop(){
+        streamRef.getVideoTracks().forEach(track => track.stop());
+    }
 </script>
 
 <body>
     <video autoplay playsInline muted id="videoFrame"></video>
   <button onclick="toggleTorch()">toggle torch</button>
+    <button onclick="stop()">stop camera</button>
 </body>
   
 <script>
